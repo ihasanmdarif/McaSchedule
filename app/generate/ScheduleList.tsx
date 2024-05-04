@@ -94,7 +94,7 @@ function extractTeamName(htmlString: string) {
   return "No team";
 }
 const formatDateTime = (date: string) => {
-  const trimmedDate = date.trim().replaceAll("|", "");
+  const trimmedDate = date.trim().replaceAll("|", "").replace(/-/g, "/");
   const dateObj = new Date(trimmedDate);
   const formatedDate = new Intl.DateTimeFormat("en-US", {
     dateStyle: "full",
