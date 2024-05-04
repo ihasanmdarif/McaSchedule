@@ -4,6 +4,10 @@
 
 @layer base {
   body {
-    @apply bg-slate-900 text-white;
+    @apply text-slate-800;
+  }
+  td,
+  th {
+    @apply p-2;
   }
 }

@@ -1,5 +1,6 @@
 import Nav from "./Nav";
 import { ScheduleList } from "./ScheduleList";
+import ScheduleTable from "./ScheduleTable";
 
 const schedules = [
   {
@@ -218,7 +219,9 @@ const schedules = [
     home: ' <br><img src="assets/teams/170.png" width="50px" height="50px" onerror="this.onerror=null;this.src=\'assets/teams/team.png\';"><br>Winnipeg Shooters',
     away: '<br><img src="assets/teams/129.png" width="50px" height="50px" onerror="this.onerror=null;this.src=\'assets/teams/team.png\';"><br>Bengal Tigers',
   },
-];
+]
+  .map((item) => ({ ...item, 1: item[1].replace("|", "") }))
+  .sort((a, b) => a[1].localeCompare(b[1]));
 
 const Page = ({
   searchParams,
@@ -226,17 +229,17 @@ const Page = ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   const team = searchParams["team"] as string | undefined;
+
   const teamOne = schedules.filter(
     (schedule) => schedule[5] !== "MCA Division-2 2024"
   );
-
   const teamTwo = schedules.filter(
     (schedule) => schedule[5] === "MCA Division-2 2024"
   );
 
   return (
     <div>
-      <ScheduleList
+      <ScheduleTable
         schedules={
           team == "bt" ? teamOne : team === "bt2" ? teamTwo : schedules
         }
