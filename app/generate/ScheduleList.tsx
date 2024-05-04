@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 type Schedule = {
   "1": string;
   "2": string;
@@ -15,15 +18,46 @@ type ScheduleListProps = {
   teamName: string;
 };
 
+const navs = [
+  {
+    href: "/generate",
+    text: "All Teams",
+  },
+  {
+    href: "/generate?team=bt",
+    text: "Bengal Tigers",
+  },
+  {
+    href: "/generate?team=bt2",
+    text: "Bengal Tigers 2",
+  },
+];
+
 export function ScheduleList({ schedules, teamName }: ScheduleListProps) {
   return (
     <div>
       <div className="flex flex-col items-center m-4">
         <div className="flex flex-col col gap-2">
-          <h3 className="text-3xl font-platypi">MCA SUMMER LEAGUE 2024</h3>
-          <h1 className="text-4xl font-platypi bg-red-500 p-2 rounded-sm text-center m-auto text-white">
-            {teamName}
-          </h1>
+          <h3 className="text-lg sm:text-3xl font-platypi text-center">
+            MCA SUMMER LEAGUE 2024
+          </h3>
+          <div className="flex gap-2">
+            {navs.map((nav, ind) => {
+              return (
+                <Link
+                  key={ind}
+                  href={nav.href}
+                  className={`text-sm sm:text-3xl font-platypi p-2 rounded-sm text-center m-auto ${
+                    teamName === nav.text
+                      ? "bg-red-500 decoration-none"
+                      : "text-white underline"
+                  }`}
+                >
+                  {nav.text}
+                </Link>
+              );
+            })}
+          </div>
         </div>
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">
           {schedules.map((schedule, ind) => {
@@ -34,6 +68,7 @@ export function ScheduleList({ schedules, teamName }: ScheduleListProps) {
               >
                 <div className="place-self-start flex gap-1 font-platypi text-md">
                   <span>{schedule[3]} | </span>
+                  <span>{formatDateTime(schedule[1]).day}</span>
                   <span>{formatDateTime(schedule[1]).dateOnly},</span>
                   <span>{formatDateTime(schedule[1]).month}</span>
                   <span>{formatDateTime(schedule[1]).time}</span>

@@ -1,3 +1,4 @@
+import Nav from "./Nav";
 import { ScheduleList } from "./ScheduleList";
 
 const schedules = [
