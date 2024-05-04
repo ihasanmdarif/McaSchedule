@@ -34,15 +34,9 @@ export function ScheduleList({ schedules, teamName }: ScheduleListProps) {
               >
                 <div className="place-self-start flex gap-1 font-platypi text-md">
                   <span>{schedule[3]} | </span>
-                  <span>
-                    {formatDateTime(schedule[1].replaceAll("|", " ")).dateOnly},
-                  </span>
-                  <span>
-                    {formatDateTime(schedule[1].replaceAll("|", " ")).month}
-                  </span>
-                  <span>
-                    {formatDateTime(schedule[1].replaceAll("|", " ")).time}
-                  </span>
+                  <span>{formatDateTime(schedule[1]).dateOnly},</span>
+                  <span>{formatDateTime(schedule[1]).month}</span>
+                  <span>{formatDateTime(schedule[1]).time}</span>
                 </div>
                 <div className="grid  grid-cols-[2fr,1fr,2fr]">
                   <span className="flex flex-col items-center">
@@ -100,9 +94,8 @@ function extractTeamName(htmlString: string) {
   return "No team";
 }
 const formatDateTime = (date: string) => {
-  const dateObj = new Date(date);
-  console.log(dateObj, date);
-
+  const trimmedDate = date.trim().replaceAll("|", "");
+  const dateObj = new Date(trimmedDate);
   const formatedDate = new Intl.DateTimeFormat("en-US", {
     dateStyle: "full",
     timeStyle: "short",
