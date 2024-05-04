@@ -105,22 +105,27 @@ const formatDateTime = (date: string) => {
   const formatedDate = new Intl.DateTimeFormat("en-US", {
     dateStyle: "full",
     timeStyle: "short",
+    timeZone: "America/Winnipeg",
   }).format(dateObj);
 
   const day = new Intl.DateTimeFormat("en-US", {
     weekday: "short",
+    timeZone: "America/Winnipeg",
   }).format(dateObj);
 
   const dateOnly = new Intl.DateTimeFormat("en-US", {
     day: "2-digit",
+    timeZone: "America/Winnipeg",
   }).format(dateObj);
 
   const time = new Intl.DateTimeFormat("en-US", {
     timeStyle: "short",
+    timeZone: "America/Winnipeg",
   }).format(dateObj);
 
   const month = new Intl.DateTimeFormat("en-US", {
     month: "short",
+    timeZone: "America/Winnipeg",
   }).format(dateObj);
 
   return { day, dateOnly, time, month, formatedDate };
