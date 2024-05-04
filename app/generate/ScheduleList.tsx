@@ -101,6 +101,7 @@ function extractTeamName(htmlString: string) {
 }
 const formatDateTime = (date: string) => {
   const dateObj = new Date(date);
+  console.log(dateObj, date);
 
   const formatedDate = new Intl.DateTimeFormat("en-US", {
     dateStyle: "full",
