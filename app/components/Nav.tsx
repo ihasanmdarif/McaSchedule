@@ -13,7 +13,7 @@ type NavProps = {
 export function Nav({ teamName, scheduleList }: NavProps) {
   const navs = [
     {
-      href: "/generate",
+      href: "/generate?team=all",
       text: "All Teams",
     },
     {
