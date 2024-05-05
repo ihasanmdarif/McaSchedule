@@ -31,6 +31,12 @@ const formatDateTime = (date: string) => {
     timeZone: "America/Winnipeg",
   }).format(dateObj);
 
+  const formatedDateShort = new Intl.DateTimeFormat("fr-CA", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(dateObj);
+
   const day = new Intl.DateTimeFormat("en-US", {
     weekday: "short",
     timeZone: "America/Winnipeg",
@@ -51,7 +57,7 @@ const formatDateTime = (date: string) => {
     timeZone: "America/Winnipeg",
   }).format(dateObj);
 
-  return { day, dateOnly, time, month, formatedDate };
+  return { day, dateOnly, time, month, formatedDate, formatedDateShort };
 };
 
 export { extractImgSrc, extractTeamName, formatDateTime };

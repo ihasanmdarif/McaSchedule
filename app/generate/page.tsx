@@ -1,6 +1,6 @@
-import Nav from "./Nav";
-import { ScheduleList } from "./ScheduleList";
-import ScheduleTable from "./ScheduleTable";
+import { Nav } from "../components/Nav";
+import { ScheduleList } from "../components/ScheduleList";
+import ScheduleTable from "../components/ScheduleTable";
 
 const schedules = [
   {
@@ -237,20 +237,28 @@ const Page = ({
     (schedule) => schedule[5] === "MCA Division-2 2024"
   );
 
+  const teamName =
+    team == "bt"
+      ? "Bengal Tigers"
+      : team == "bt2"
+      ? "Bengal Tigers 2"
+      : "All Teams";
+
   return (
     <div>
-      <ScheduleTable
-        schedules={
-          team == "bt" ? teamOne : team === "bt2" ? teamTwo : schedules
-        }
-        teamName={
-          team == "bt"
-            ? "Bengal Tigers"
-            : team == "bt2"
-            ? "Bengal Tigers 2"
-            : "All Teams"
-        }
-      />
+      <div className="flex flex-col items-center p-4">
+        <div className="flex flex-col gap-2">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-platypi text-center">
+            MCA SUMMER LEAGUE 2024
+          </h3>
+        </div>
+        <Nav
+          teamName={teamName}
+          scheduleList={
+            team == "bt" ? teamOne : team === "bt2" ? teamTwo : schedules
+          }
+        />
+      </div>
     </div>
   );
 };
