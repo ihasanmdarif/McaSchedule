@@ -23,7 +23,7 @@ type ScheduleTableProps = {
 
 const ScheduleTable = ({ schedules }: ScheduleTableProps) => {
   return (
-    <div className="h-full w-full sm:w-auto">
+    <div className="h-full w-full sm:w-auto overflow-x-scroll">
       <table className="w-full min-w-max table-auto">
         <thead>
           <tr className="bg-slate-800 text-white">
