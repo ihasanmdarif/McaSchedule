@@ -245,8 +245,8 @@ const Page = ({
       : "All Teams";
 
   return (
-    <div>
-      <div className="flex flex-col items-center p-4">
+    <div className="h-screen">
+      <div className="flex flex-col items-center p-4 h-full">
         <div className="flex flex-col gap-2">
           <h3 className="text-lg sm:text-xl md:text-2xl font-platypi text-center">
             MCA SUMMER LEAGUE 2024
