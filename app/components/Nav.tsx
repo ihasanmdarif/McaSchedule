@@ -28,7 +28,7 @@ export function Nav({ teamName, scheduleList }: NavProps) {
 
   const [showCalendarView, setShowCalendarView] = useState(false);
   return (
-    <div className="h-full w-full sm:w-auto overflow-scroll">
+    <div className="h-full w-full sm:w-auto overflow-x-scroll">
       <div className="flex flex-row gap-2 mb-4 items-center">
         {navs.map((nav, ind) => {
           return (
