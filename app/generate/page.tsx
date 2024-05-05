@@ -1,6 +1,22 @@
+import { Metadata } from "next";
 import { Nav } from "../components/Nav";
-import { ScheduleList } from "../components/ScheduleList";
-import ScheduleTable from "../components/ScheduleTable";
+
+export const metadata: Metadata = {
+  openGraph: {
+    title: "Bengal Tigers club",
+    description: "Winnipeg",
+    url: "http://www.bengaltigers.ca/",
+    images: [
+      {
+        url: "http://nebula.wsimg.com/a8805dabc5741c9e9582993cbededeef?AccessKeyId=101F2FE016807FA44EC1&disposition=0&alloworigin=1",
+        width: 800,
+        height: 600,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+};
 
 const schedules = [
   {
