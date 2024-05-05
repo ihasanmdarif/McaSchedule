@@ -1,3 +1,10 @@
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
 const extractImgSrc = (html: string) => {
   const src = html.match(/src="([^"]*)"/);
   return src ? src[1] : "assets/teams/team.png";

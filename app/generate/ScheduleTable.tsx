@@ -1,6 +1,11 @@
 "use client";
 
-import { extractImgSrc, extractTeamName, formatDateTime } from "@/libs/utils";
+import {
+  cn,
+  extractImgSrc,
+  extractTeamName,
+  formatDateTime,
+} from "@/libs/utils";
 import Link from "next/link";
 
 type Schedule = {
@@ -33,12 +38,11 @@ const navs = [
 ];
 
 const ScheduleTable = ({ schedules, teamName }: ScheduleTableProps) => {
-  console.log(schedules);
   return (
     <div className="overflow-auto">
       <div className="flex flex-col items-center p-4">
         <div className="flex flex-col col gap-2">
-          <h3 className="text-lg sm:text-3xl font-platypi text-center">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-platypi text-center">
             MCA SUMMER LEAGUE 2024
           </h3>
           <div className="flex gap-2 mb-4">
@@ -47,11 +51,13 @@ const ScheduleTable = ({ schedules, teamName }: ScheduleTableProps) => {
                 <Link
                   key={ind}
                   href={nav.href}
-                  className={`text-sm sm:text-3xl font-platypi p-2 rounded-sm text-center m-auto ${
-                    teamName.toLowerCase() === nav.text.toLowerCase()
-                      ? "bg-red-500 decoration-none text-white"
-                      : "text-slate-900 underline"
-                  }`}
+                  className={cn(
+                    `text-sm sm:text-3xl font-platypi p-2 rounded-sm text-center m-auto underline`,
+                    {
+                      "bg-cyan-700 text-white no-underline":
+                        nav.text === teamName,
+                    }
+                  )}
                 >
                   {nav.text}
                 </Link>
@@ -59,8 +65,8 @@ const ScheduleTable = ({ schedules, teamName }: ScheduleTableProps) => {
             })}
           </div>
         </div>
-        <div className="overflow">
-          <table className="table-auto w-full">
+        <div className="h-full w-full sm:w-auto overflow-scroll">
+          <table className="w-full min-w-max table-auto">
             <thead>
               <tr className="bg-slate-800 text-white">
                 <th>Date</th>
@@ -73,7 +79,12 @@ const ScheduleTable = ({ schedules, teamName }: ScheduleTableProps) => {
             <tbody>
               {schedules.map((schedule, ind) => {
                 return (
-                  <tr key={ind} className=" border-b-2">
+                  <tr
+                    key={ind}
+                    className={cn("whitespace-nowrap", {
+                      "bg-cyan-100": isHomeGame(schedule.home),
+                    })}
+                  >
                     <td className=" font-bold">
                       {formatDateTime(schedule["1"]).formatedDate}
                     </td>
@@ -112,6 +123,12 @@ const ScheduleTable = ({ schedules, teamName }: ScheduleTableProps) => {
       </div>
     </div>
   );
+};
+
+const isHomeGame = (teamName: string) => {
+  const filteredTeamName = extractTeamName(teamName);
+
+  return filteredTeamName.toLowerCase().includes("bengal tigers");
 };
 
 export default ScheduleTable;
