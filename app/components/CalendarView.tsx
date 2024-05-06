@@ -58,7 +58,6 @@ export function CalendarView({ schedules }: CalendarViewProps) {
         eventClick={(info) => {
           handleEventClick(info.event.id);
         }}
-        height={"auto"}
       />
       {showModal && (
         <ModalPopup
