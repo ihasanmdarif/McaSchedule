@@ -28,8 +28,8 @@ export function Nav({ teamName, scheduleList }: NavProps) {
 
   const [showCalendarView, setShowCalendarView] = useState(false);
   return (
-    <div className="h-full w-full sm:w-auto overflow-x-scroll">
-      <div className="flex flex-row gap-2 mb-4 items-center">
+    <div className="h-full w-full sm:w-auto">
+      <div className="flex flex-row gap-2 mb-4 items-center sticky top-0 bg-white px-2 py-4">
         {navs.map((nav, ind) => {
           return (
             <Link
