@@ -40,7 +40,7 @@ const ScheduleTable = ({ schedules }: ScheduleTableProps) => {
               <tr
                 key={ind}
                 className={cn("whitespace-nowrap  ", {
-                  "bg-red-100 rounded border-t-4 border-white": isHomeGame(
+                  "bg-cyan-100 rounded border-t-4 border-white": isHomeGame(
                     schedule.home
                   ),
                 })}
