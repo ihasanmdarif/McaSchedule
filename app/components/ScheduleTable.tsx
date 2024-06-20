@@ -23,7 +23,7 @@ type ScheduleTableProps = {
 
 const ScheduleTable = ({ schedules }: ScheduleTableProps) => {
   return (
-    <div className="h-full w-full sm:w-auto overflow-x-scroll">
+    <div className="h-full w-full sm:w-auto">
       <table className="w-full min-w-max table-auto">
         <thead>
           <tr className="bg-slate-800 text-white">
@@ -39,11 +39,13 @@ const ScheduleTable = ({ schedules }: ScheduleTableProps) => {
             return (
               <tr
                 key={ind}
-                className={cn("whitespace-nowrap", {
-                  "bg-cyan-100": isHomeGame(schedule.home),
+                className={cn("whitespace-nowrap  ", {
+                  "bg-red-100 rounded border-t-4 border-white": isHomeGame(
+                    schedule.home
+                  ),
                 })}
               >
-                <td className=" font-bold">
+                <td className="font-bold">
                   {formatDateTime(schedule["1"]).formatedDate}
                 </td>
                 <td>{formatDateTime(schedule["1"]).time}</td>

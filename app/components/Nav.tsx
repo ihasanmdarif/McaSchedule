@@ -67,8 +67,10 @@ export function Nav({ teamName, scheduleList }: NavProps) {
           </button>
         </div>
       </div>
-      {showCalendarView && <CalendarView schedules={scheduleList} />}
-      {!showCalendarView && <ScheduleTable schedules={scheduleList} />}
+      <div className="overflow-x-auto">
+        {showCalendarView && <CalendarView schedules={scheduleList} />}
+        {!showCalendarView && <ScheduleTable schedules={scheduleList} />}
+      </div>
     </div>
   );
 }
