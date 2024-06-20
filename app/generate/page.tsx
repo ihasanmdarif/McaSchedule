@@ -47,9 +47,9 @@ const schedules = [
     away: '<br><img src="assets/teams/130.png" width="50px" height="50px" onerror="this.onerror=null;this.src=\'assets/teams/team.png\';"><br>Bengal Tigers 2',
   },
   {
-    "1": " | 2024-05-26 | 15:15:00",
+    "1": " | 2024-07-13 | 10:00:00",
     "2": "Venue : ",
-    "3": "Waverly ground (WPG)",
+    "3": "La Barriere 1",
     "4": "Tournament : ",
     "5": "MCA Division-2 2024",
     home: ' <br><img src="assets/teams/130.png" width="50px" height="50px" onerror="this.onerror=null;this.src=\'assets/teams/team.png\';"><br>Bengal Tigers 2',
