@@ -16,7 +16,7 @@ const platypi = Platypi({
 });
 
 export const metadata: Metadata = {
-  title: "Mca Schedule List 2024",
+  title: "Bengal Tiger Cricket schedular",
   description: "Bengal Tiger Cricket, MB CA",
 };
 
@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={false}>
       <body
         className={`${inter.variable} ${platypi.variable} ${roboto.variable}`}
       >
