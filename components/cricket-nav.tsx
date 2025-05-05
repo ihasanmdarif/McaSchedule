@@ -50,7 +50,10 @@ const navItems: NavItem[] = [
   { id: "away", label: "Away", icon: <MapPin className="h-4 w-4 mr-2" /> },
 ];
 
-export function CricketNav() {
+type props = {
+  hideTeamSelection?: boolean;
+};
+export function CricketNav({ hideTeamSelection }: props) {
   const {
     activeView,
     handleViewChange,
@@ -194,36 +197,38 @@ export function CricketNav() {
       </div>
 
       {/* Team Selection - Desktop Only */}
-      <div className="hidden md:flex mt-16 px-4 py-2 justify-center ">
-        <ToggleGroup
-          type="single"
-          value={selectedTeamId}
-          className="shadow p-2 rounded-md"
-          onValueChange={(value) => value && handleTeamChange(value)}
-        >
-          <ToggleGroupItem
-            value="1"
-            className="text-xs sm:text-sm data-[state=on]:bg-primary data-[state=on]:text-white"
+      {!hideTeamSelection && (
+        <div className="hidden md:flex mt-16 px-4 py-2 justify-center ">
+          <ToggleGroup
+            type="single"
+            value={selectedTeamId}
+            className="shadow p-2 rounded-md"
+            onValueChange={(value) => value && handleTeamChange(value)}
           >
-            <Users className="h-4 w-4 mr-1 sm:mr-2" />
-            <span>All Teams</span>
-          </ToggleGroupItem>
-          <ToggleGroupItem
-            value="2"
-            className="text-xs sm:text-sm data-[state=on]:bg-primary data-[state=on]:text-white"
-          >
-            <Users className="h-4 w-4 mr-1 sm:mr-2" />
-            <span>Bengal Tigers</span>
-          </ToggleGroupItem>
-          <ToggleGroupItem
-            value="3"
-            className="text-xs sm:text-sm data-[state=on]:bg-primary data-[state=on]:text-white"
-          >
-            <Users className="h-4 w-4 mr-1 sm:mr-2" />
-            <span>Bengal Tigers 2</span>
-          </ToggleGroupItem>
-        </ToggleGroup>
-      </div>
+            <ToggleGroupItem
+              value="1"
+              className="text-xs sm:text-sm data-[state=on]:bg-primary data-[state=on]:text-white"
+            >
+              <Users className="h-4 w-4 mr-1 sm:mr-2" />
+              <span>All Teams</span>
+            </ToggleGroupItem>
+            <ToggleGroupItem
+              value="2"
+              className="text-xs sm:text-sm data-[state=on]:bg-primary data-[state=on]:text-white"
+            >
+              <Users className="h-4 w-4 mr-1 sm:mr-2" />
+              <span>Bengal Tigers</span>
+            </ToggleGroupItem>
+            <ToggleGroupItem
+              value="3"
+              className="text-xs sm:text-sm data-[state=on]:bg-primary data-[state=on]:text-white"
+            >
+              <Users className="h-4 w-4 mr-1 sm:mr-2" />
+              <span>Bengal Tigers 2</span>
+            </ToggleGroupItem>
+          </ToggleGroup>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,10 +1,11 @@
 "use client";
 
 import { Match, useAppContext } from "@/context/AppContext";
-import { formattedAppDate } from "@/lib/utils";
+import { formattedAppDate, getProxiedImageUrl } from "@/lib/utils";
 import Image from "next/image";
-import { Avatar, AvatarImage } from "./ui/avatar";
 import { useMemo } from "react";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 type Props = {
   matches: Match[];
@@ -60,18 +61,19 @@ export const ListView = ({ matches }: Props) => {
                   <span className="text-sm text-muted-foreground capitalize">
                     {match.venue} Home: {match.home}
                   </span>
-                  <div className="flex flex-col items-start justify-between sm:flex-row">
+                  <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
                     <div className="flex items-center gap-2 flex-1">
-                      <Avatar>
-                        <AvatarImage
-                          src={
-                            match.isHome
-                              ? "http://cricketsasa.ca/cricket/assets/teams/129.png"
-                              : `http://cricketsasa.ca/cricket/${match.opponentLogo}`
-                          }
-                          alt="Home team logo"
-                        />
-                      </Avatar>
+                      <Image
+                        src={
+                          match.isHome
+                            ? getProxiedImageUrl("/assets/teams/129.png")
+                            : getProxiedImageUrl(match.opponentLogo)
+                        }
+                        width="60"
+                        height="60"
+                        className="rounded-full"
+                        alt="Home team logo"
+                      />
                       <span className="capitalize font-semibold">
                         {match.home}
                       </span>
@@ -85,20 +87,24 @@ export const ListView = ({ matches }: Props) => {
                       />
                     </div>
                     <div className="flex items-center  gap-2 flex-1">
-                      <Avatar>
-                        <AvatarImage
-                          src={
-                            !match.isHome
-                              ? "http://cricketsasa.ca/cricket/assets/teams/129.png"
-                              : `http://cricketsasa.ca/cricket/${match.opponentLogo}`
-                          }
-                          alt="Away team logo"
-                        />
-                      </Avatar>
+                      <Image
+                        src={
+                          !match.isHome
+                            ? getProxiedImageUrl("/assets/teams/129.png")
+                            : getProxiedImageUrl(match.opponentLogo)
+                        }
+                        width="60"
+                        height="60"
+                        className="rounded-full"
+                        alt="Home team logo"
+                      />
                       <span className="capitalize font-semibold">
                         {match.away}
                       </span>
                     </div>
+                    <Button variant="link" asChild>
+                      <Link href={`/match/${match.id}`}>Match Center</Link>
+                    </Button>
                   </div>
                 </div>
               </div>

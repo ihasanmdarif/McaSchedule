@@ -89,3 +89,9 @@ export const formattedAppDate = (passedDate: string) => {
 };
 
 export { extractImgSrc, extractTeamName, formatDateTime };
+
+export function getProxiedImageUrl(assetsPath: string): string {
+  const remoteUrl = `http://cricketsasa.ca/cricket/${assetsPath}`;
+
+  return `/api/image-proxy?url=${encodeURIComponent(remoteUrl)}`;
+}
