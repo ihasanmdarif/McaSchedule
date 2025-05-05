@@ -10,7 +10,7 @@ import {
   MapPin,
   Trophy,
   Users,
-  List,
+  Table,
   Menu,
 } from "lucide-react";
 
@@ -25,10 +25,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import Image from "next/image";
+import Link from "next/link";
+import { useAppContext } from "@/context/AppContext";
 
 // Sample data - replace with your actual data
-const years = [2025, 2024, 2023, 2022, 2021, 2020];
-const currentYear = 2025;
+const years = [2025, 2024];
 
 // Navigation items with proper typing
 type NavItem = {
@@ -38,43 +40,39 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
+  { id: "list", label: "List", icon: <Table className="h-4 w-4 mr-2" /> },
   {
     id: "calendar",
     label: "Calendar",
     icon: <Calendar className="h-4 w-4 mr-2" />,
   },
-  { id: "list", label: "List", icon: <List className="h-4 w-4 mr-2" /> },
-  {
-    id: "upcoming",
-    label: "Upcoming",
-    icon: <Trophy className="h-4 w-4 mr-2" />,
-  },
   { id: "home", label: "Home", icon: <Home className="h-4 w-4 mr-2" /> },
   { id: "away", label: "Away", icon: <MapPin className="h-4 w-4 mr-2" /> },
 ];
 
-interface CricketNavProps {
-  onViewChange?: (view: string) => void;
-}
-
-export function CricketNav({ onViewChange = () => {} }: CricketNavProps) {
-  const [selectedYear, setSelectedYear] = useState<number>(currentYear);
-  const [selectedTeam, setSelectedTeam] = useState<string>("all");
-  const [activeView, setActiveView] = useState<string>("calendar");
+export function CricketNav() {
+  const {
+    activeView,
+    handleViewChange,
+    selectedTeamId,
+    selectedYear,
+    handleTeamChange,
+    handleYearChange,
+  } = useAppContext();
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   const handleNavClick = (viewId: string) => {
-    setActiveView(viewId);
-    onViewChange(viewId);
+    handleViewChange(viewId);
     setMobileMenuOpen(false);
   };
 
   return (
-    <div className="border-b">
-      <div className="flex h-16 items-center px-4">
-        <div className="flex items-center gap-2 font-bold text-xl text-green-700">
-          <Trophy className="h-6 w-6" />
-          <span className="hidden md:inline">Bengla Tigers Club</span>
+    <div>
+      <div className="flex h-16 items-center justify-between px-4 shadow-md bg-white fixed top-0 left-0 right-0 z-10">
+        <div className="flex items-center">
+          <Link href="/" className="flex items-center">
+            <Image src="/bt-logo.png" alt="Logo" width={80} height={80} />
+          </Link>
         </div>
 
         {/* Desktop Navigation */}
@@ -86,7 +84,7 @@ export function CricketNav({ onViewChange = () => {} }: CricketNavProps) {
               className={cn(
                 "flex items-center",
                 activeView === item.id
-                  ? "bg-green-100 text-green-800 hover:bg-green-200"
+                  ? "bg-red-300 text-red-800 hover:bg-red-200"
                   : "",
               )}
               onClick={() => handleNavClick(item.id)}
@@ -109,7 +107,7 @@ export function CricketNav({ onViewChange = () => {} }: CricketNavProps) {
               <div className="flex flex-col gap-4 py-4">
                 <div className="flex items-center gap-2 font-bold text-xl text-green-700 mb-4">
                   <Trophy className="h-6 w-6" />
-                  <span>Bengla Tigers Club</span>
+                  <span>Bengal Tigers Club</span>
                 </div>
                 {navItems.map((item) => (
                   <Button
@@ -127,33 +125,29 @@ export function CricketNav({ onViewChange = () => {} }: CricketNavProps) {
                     {item.label}
                   </Button>
                 ))}
-                <div className="mt-4 pt-4 border-t">
+                <div className="mt-4 pt-4">
                   <p className="text-sm font-medium mb-2">Select Team</p>
                   <div className="flex flex-col gap-2">
                     <Button
                       variant="outline"
-                      className={cn(selectedTeam === "all" && "bg-muted")}
-                      onClick={() => setSelectedTeam("all")}
+                      className={cn(selectedTeamId === "1" && "bg-muted")}
+                      onClick={() => handleTeamChange("1")}
                     >
                       <Users className="h-4 w-4 mr-2" />
                       All Teams
                     </Button>
                     <Button
                       variant="outline"
-                      className={cn(
-                        selectedTeam === "bengla-tigers" && "bg-muted",
-                      )}
-                      onClick={() => setSelectedTeam("bengla-tigers")}
+                      className={cn(selectedTeamId === "2" && "bg-muted")}
+                      onClick={() => handleTeamChange("2")}
                     >
                       <Users className="h-4 w-4 mr-2" />
-                      Bengla Tigers
+                      Bengal Tigers
                     </Button>
                     <Button
                       variant="outline"
-                      className={cn(
-                        selectedTeam === "bengal-tigers-2" && "bg-muted",
-                      )}
-                      onClick={() => setSelectedTeam("bengal-tigers-2")}
+                      className={cn(selectedTeamId === "3" && "bg-muted")}
+                      onClick={() => handleTeamChange("3")}
                     >
                       <Users className="h-4 w-4 mr-2" />
                       Bengal Tigers 2
@@ -165,7 +159,7 @@ export function CricketNav({ onViewChange = () => {} }: CricketNavProps) {
           </Sheet>
         </div>
 
-        <div className="mr-auto flex items-center space-x-4">
+        <div className="flex items-center space-x-4">
           <div className="hidden md:flex">
             <Input
               placeholder="Search matches..."
@@ -185,7 +179,7 @@ export function CricketNav({ onViewChange = () => {} }: CricketNavProps) {
               {years.map((year) => (
                 <DropdownMenuItem
                   key={year}
-                  onClick={() => setSelectedYear(year)}
+                  onClick={() => handleYearChange(year)}
                   className={cn(
                     "cursor-pointer",
                     selectedYear === year && "font-bold bg-green-50",
@@ -200,23 +194,30 @@ export function CricketNav({ onViewChange = () => {} }: CricketNavProps) {
       </div>
 
       {/* Team Selection - Desktop Only */}
-      <div className="hidden md:block border-t px-4 py-2">
+      <div className="hidden md:flex mt-16 px-4 py-2 justify-center ">
         <ToggleGroup
           type="single"
-          value={selectedTeam}
-          onValueChange={(value) => value && setSelectedTeam(value)}
+          value={selectedTeamId}
+          className="shadow p-2 rounded-md"
+          onValueChange={(value) => value && handleTeamChange(value)}
         >
-          <ToggleGroupItem value="all" className="text-xs sm:text-sm">
+          <ToggleGroupItem
+            value="1"
+            className="text-xs sm:text-sm data-[state=on]:bg-primary data-[state=on]:text-white"
+          >
             <Users className="h-4 w-4 mr-1 sm:mr-2" />
             <span>All Teams</span>
           </ToggleGroupItem>
-          <ToggleGroupItem value="bengla-tigers" className="text-xs sm:text-sm">
+          <ToggleGroupItem
+            value="2"
+            className="text-xs sm:text-sm data-[state=on]:bg-primary data-[state=on]:text-white"
+          >
             <Users className="h-4 w-4 mr-1 sm:mr-2" />
-            <span>Bengla Tigers</span>
+            <span>Bengal Tigers</span>
           </ToggleGroupItem>
           <ToggleGroupItem
-            value="bengal-tigers-2"
-            className="text-xs sm:text-sm"
+            value="3"
+            className="text-xs sm:text-sm data-[state=on]:bg-primary data-[state=on]:text-white"
           >
             <Users className="h-4 w-4 mr-1 sm:mr-2" />
             <span>Bengal Tigers 2</span>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Roboto, Platypi } from "next/font/google";
 import "./globals.css";
+import { AppProvider } from "@/context/AppContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const roboto = Roboto({
@@ -30,7 +31,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${platypi.variable} ${roboto.variable}`}
       >
-        {children}
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );
