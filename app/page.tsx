@@ -11,11 +11,13 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-slate-100">
       <CricketNav />
-      <main className="flex-1 p-4">
+      <main className="flex-1 p-4 mt-16 md:mt-0">
         <div className="grid gap-6">
           <div className="flex justify-center">
-            <h1 className="text-3xl font-bold tracking-tight my-4">
-              {teams.find((p) => p.id == selectedTeamId)?.name} - {selectedYear}
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight my-4">
+              {`Schedule of ${
+                teams.find((p) => p.id == selectedTeamId)?.name
+              } `}
             </h1>
           </div>
 

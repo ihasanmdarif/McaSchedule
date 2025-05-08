@@ -49,7 +49,7 @@ export default function MatchDayPoster({ match }: props) {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <Card
         ref={posterRef}
-        className="relative w-full max-w-3xl overflow-hidden bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 text-white shadow-2xl"
+        className="relative w-full max-w-3xl overflow-hidden bg-gradient-to-br from-red-900 via-rose-800 to-pink-900 text-white shadow-2xl"
       >
         {/* Decorative elements */}
         <div className="absolute top-0 left-0 w-full h-full">
@@ -58,7 +58,7 @@ export default function MatchDayPoster({ match }: props) {
         </div>
 
         {/* Header */}
-        <div className="relative z-10 pt-8 px-6 text-center">
+        <div className="relative pt-8 px-6 text-center">
           <div className="uppercase tracking-widest text-yellow-400 font-bold mb-2">
             {match.teamId == "1" ? "Premiere Division" : "Division 2"}
           </div>
@@ -70,7 +70,7 @@ export default function MatchDayPoster({ match }: props) {
 
         {/* Teams */}
         <div
-          className={`relative z-10 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 px-6 py-8 transition-transform duration-500 ${
+          className={`relative  flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 px-6 py-8 transition-transform duration-500 ${
             isAnimating ? "scale-110" : ""
           }`}
           onMouseEnter={() => setIsAnimating(true)}
@@ -117,7 +117,7 @@ export default function MatchDayPoster({ match }: props) {
         </div>
 
         {/* Match Details */}
-        <div className="relative z-10 bg-black bg-opacity-30 p-6">
+        <div className="relative  bg-black bg-opacity-30 p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex items-center">
               <Calendar className="mr-2 text-yellow-400" />
@@ -144,7 +144,7 @@ export default function MatchDayPoster({ match }: props) {
         </div>
 
         {/* Footer */}
-        <div className="relative z-10 p-6 text-center">
+        <div className="relative  p-6 text-center">
           <Button className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
             Scoreboard
           </Button>

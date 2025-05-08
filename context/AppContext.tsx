@@ -35,7 +35,7 @@ const currentYear = new Date().getFullYear();
 const teams = [
   {
     id: "1",
-    name: "All Teams",
+    name: "Both Divisions",
   },
   {
     id: "2",

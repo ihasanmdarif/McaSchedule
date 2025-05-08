@@ -73,9 +73,11 @@ export function CricketNav({ hideTeamSelection }: props) {
     <div>
       <div className="flex h-16 items-center justify-between px-4 shadow-md bg-white fixed top-0 left-0 right-0 z-10">
         <div className="flex items-center">
-          <Link href="/" className="flex items-center">
-            <Image src="/bt-logo.png" alt="Logo" width={80} height={80} />
-          </Link>
+          <Button onClick={() => handleNavClick("list")} variant="ghost">
+            <Link href="/" className="flex items-center">
+              <Image src="/bt-logo.png" alt="Logo" width={80} height={80} />
+            </Link>
+          </Button>
         </div>
 
         {/* Desktop Navigation */}
@@ -86,9 +88,7 @@ export function CricketNav({ hideTeamSelection }: props) {
               variant={activeView === item.id ? "default" : "ghost"}
               className={cn(
                 "flex items-center",
-                activeView === item.id
-                  ? "bg-red-300 text-red-800 hover:bg-red-200"
-                  : "",
+                activeView === item.id ? "bg-primary" : "",
               )}
               onClick={() => handleNavClick(item.id)}
             >
@@ -137,7 +137,7 @@ export function CricketNav({ hideTeamSelection }: props) {
                       onClick={() => handleTeamChange("1")}
                     >
                       <Users className="h-4 w-4 mr-2" />
-                      All Teams
+                      Both Divisions
                     </Button>
                     <Button
                       variant="outline"

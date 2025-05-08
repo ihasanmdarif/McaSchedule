@@ -1,7 +1,7 @@
 "use client";
 
 import { Match, useAppContext } from "@/context/AppContext";
-import { formattedAppDate, getProxiedImageUrl } from "@/lib/utils";
+import { cn, formattedAppDate, getProxiedImageUrl } from "@/lib/utils";
 import Image from "next/image";
 import { useMemo } from "react";
 import { Button } from "./ui/button";
@@ -40,28 +40,32 @@ export const ListView = ({ matches }: Props) => {
         </span>
         <div className="grid gap-4 mx-auto">
           {filteredMatches.map((match) => (
-            <div key={match.id} className="px-6 py-4  border-b last:border-0">
+            <div
+              key={match.id}
+              className={cn("p-6  border-b last:border-0", {
+                "bg-orange-50 rounded-sm":
+                  match.isHome && activeView === "list",
+              })}
+            >
               <div className="flex flex-col gap-4 items-center sm:flex-row">
-                <div className="gap-3 flex flex-col">
-                  <div>
-                    <span className="text-sm uppercase border px-2 rounded-sm border-red-400">
-                      match {match.id}
-                    </span>
-                  </div>
-                  <div className="flex flex-col items-start gap">
+                <div className="gap-3 flex flex-col items-center">
+                  <span className="text-sm uppercase border px-2 rounded-sm border-red-400">
+                    match id: {match.id}
+                  </span>
+                  <div className="flex items-center gap-2">
                     <span className="text-md font-semibold">
                       {formattedAppDate(match.date)}
                     </span>
                     <div className="flex gap items-center">
-                      <span className="text-sm">{match.time} AM</span>
+                      <span>{match.time} AM</span>
                     </div>
                   </div>
                 </div>
                 <div className="flex flex-col flex-1 gap-3">
-                  <span className="text-sm text-muted-foreground capitalize">
-                    {match.venue} Home: {match.home}
+                  <span className="text-sm text-muted-foreground capitalize text-center">
+                    {match.venue}
                   </span>
-                  <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
+                  <div className="flex flex-col items-start justify-between  gap-4 sm:flex-row sm:items-center">
                     <div className="flex items-center gap-2 flex-1">
                       <Image
                         src={
@@ -102,7 +106,7 @@ export const ListView = ({ matches }: Props) => {
                         {match.away}
                       </span>
                     </div>
-                    <Button variant="link" asChild>
+                    <Button className="self-center">
                       <Link href={`/match/${match.id}`}>Match Center</Link>
                     </Button>
                   </div>
