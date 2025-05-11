@@ -1,12 +1,41 @@
 "use client";
 
+import { CalendarView } from "@/components/Calendar-view";
 import { CricketNav } from "@/components/cricket-nav";
 import { ListView } from "@/components/list-view";
 import { useAppContext } from "@/context/AppContext";
 import matches from "@/data/2025.json";
+import { toZonedTime } from "date-fns-tz";
+import { useMemo } from "react";
 
 export default function Home() {
-  const { activeView, teams, selectedTeamId, selectedYear } = useAppContext();
+  const { activeView, teams, selectedTeamId } = useAppContext();
+
+  const filteredMatches = useMemo(() => {
+    return matches
+      .sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateA.getTime() - dateB.getTime();
+      })
+      .filter((match) => {
+        // Winnipeg timezone
+        const timeZone = "America/Winnipeg";
+        const matchDate = toZonedTime(new Date(match.date), timeZone);
+        const today = toZonedTime(new Date(), timeZone);
+        return matchDate >= today;
+      })
+      .filter((match) => {
+        if (activeView === "home") return match.isHome;
+        if (activeView === "away") return !match.isHome;
+        return true;
+      })
+      .filter((match) => {
+        if (selectedTeamId === "1") return true;
+        if (selectedTeamId == "2") return match.teamId === "1";
+        if (selectedTeamId == "3") return match.teamId === "2";
+      });
+  }, [selectedTeamId, activeView]);
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-100">
@@ -23,59 +52,11 @@ export default function Home() {
 
           {/* Calendar View */}
           {activeView === "calendar" && (
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold mb-4">Calendar View</h2>
-              <div className="grid grid-cols-7 gap-1 text-center font-medium">
-                <div>Sun</div>
-                <div>Mon</div>
-                <div>Tue</div>
-                <div>Wed</div>
-                <div>Thu</div>
-                <div>Fri</div>
-                <div>Sat</div>
-              </div>
-              <div className="grid grid-cols-7 gap-1 mt-2">
-                {/* Sample calendar - first row with some empty days */}
-                {Array.from({ length: 3 }).map((_, i) => (
-                  <div
-                    key={`empty-${i}`}
-                    className="aspect-square p-1 text-muted-foreground text-sm"
-                  ></div>
-                ))}
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <div
-                    key={`day-${i + 1}`}
-                    className="aspect-square border rounded-md p-1 text-sm"
-                  >
-                    <div className="font-medium">{i + 1}</div>
-                    {i === 2 && (
-                      <div className="mt-1 text-xs bg-green-100 text-green-800 rounded px-1 py-0.5 truncate">
-                        Match
-                      </div>
-                    )}
-                  </div>
-                ))}
-
-                {/* Second row */}
-                {Array.from({ length: 7 }).map((_, i) => (
-                  <div
-                    key={`day-${i + 5}`}
-                    className="aspect-square border rounded-md p-1 text-sm"
-                  >
-                    <div className="font-medium">{i + 5}</div>
-                    {i === 0 && (
-                      <div className="mt-1 text-xs bg-green-100 text-green-800 rounded px-1 py-0.5 truncate">
-                        Match
-                      </div>
-                    )}
-                  </div>
-                ))}
-
-                {/* Additional rows would continue here */}
-              </div>
+            <div className="md:w-[800px] sm:h-[500px] mx-auto overflow-auto my-4">
+              <CalendarView matches={filteredMatches} />
             </div>
           )}
-          <ListView matches={matches} />
+          <ListView matches={filteredMatches} />
         </div>
       </main>
     </div>

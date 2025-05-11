@@ -1,5 +1,6 @@
 "use client";
 
+import { toZonedTime } from "date-fns-tz";
 import { Match, useAppContext } from "@/context/AppContext";
 import { cn, formattedAppDate, getProxiedImageUrl } from "@/lib/utils";
 import Image from "next/image";
@@ -13,33 +14,14 @@ type Props = {
 export const ListView = ({ matches }: Props) => {
   const { activeView, selectedTeamId } = useAppContext();
 
-  const filteredMatches = useMemo(() => {
-    return matches
-      .sort((a, b) => {
-        const dateA = new Date(a.date);
-        const dateB = new Date(b.date);
-        return dateA.getTime() - dateB.getTime();
-      })
-      .filter((match) => {
-        if (activeView === "home") return match.isHome;
-        if (activeView === "away") return !match.isHome;
-        return true;
-      })
-      .filter((match) => {
-        if (selectedTeamId === "1") return true;
-        if (selectedTeamId == "2") return match.teamId === "1";
-        if (selectedTeamId == "3") return match.teamId === "2";
-      });
-  }, [matches, selectedTeamId, activeView]);
-
   return (
     activeView !== "calendar" && (
       <div className="bg-white rounded-lg shadow-md p-4 md:max-w-5xl md:mx-auto">
-        <span className="text-lg font-semibold mb-4">
-          Total: {filteredMatches.length} Matches
-        </span>
+        <p className="text-lg font-semibold mb-4 text-center">
+          Upcoming Matches: {matches.length}
+        </p>
         <div className="grid gap-4 mx-auto">
-          {filteredMatches.map((match) => (
+          {matches.map((match) => (
             <div
               key={match.id}
               className={cn("p-6  border-b last:border-0", {

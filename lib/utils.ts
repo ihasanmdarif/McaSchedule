@@ -23,6 +23,7 @@ function extractTeamName(htmlString: string) {
   // If no match found, return null
   return "No team";
 }
+
 const formatDateTime = (date: string) => {
   const trimmedDate = date.trim().replaceAll("|", "").replace(/-/g, "/");
   const dateObj = new Date(trimmedDate);
