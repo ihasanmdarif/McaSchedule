@@ -12,6 +12,7 @@ import {
   Users,
   Table,
   Menu,
+  Clock,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -48,6 +49,11 @@ const navItems: NavItem[] = [
   },
   { id: "home", label: "Home", icon: <Home className="h-4 w-4 mr-2" /> },
   { id: "away", label: "Away", icon: <MapPin className="h-4 w-4 mr-2" /> },
+  {
+    id: "past-matches",
+    label: "Past Matches",
+    icon: <Clock className="h-4 w-4 mr-2" />,
+  },
 ];
 
 type props = {

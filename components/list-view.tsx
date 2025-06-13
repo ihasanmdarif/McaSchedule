@@ -17,16 +17,21 @@ export const ListView = ({ matches }: Props) => {
   return (
     activeView !== "calendar" && (
       <div className="bg-white rounded-lg shadow-md p-4 md:max-w-5xl md:mx-auto">
-        <p className="text-lg font-semibold mb-4 text-center">
-          Upcoming Matches: {matches.length}
-        </p>
+        {activeView === "past-matches" ? (
+          <p className="text-lg font-semibold mb-4 text-center">
+            Past Matches: {matches.length}
+          </p>
+        ) : (
+          <p className="text-lg font-semibold mb-4 text-center">
+            Upcoming Matches: {matches.length}
+          </p>
+        )}
         <div className="grid gap-4 mx-auto">
           {matches.map((match) => (
             <div
               key={match.id}
               className={cn("p-6  border-b last:border-0", {
-                "bg-orange-50 rounded-sm":
-                  match.isHome && activeView === "list",
+                "bg-blue-400 rounded-sm": match.isHome && activeView === "list",
               })}
             >
               <div className="flex flex-col gap-4 items-center sm:flex-row">

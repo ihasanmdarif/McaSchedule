@@ -23,6 +23,9 @@ export default function Home() {
         const timeZone = "America/Winnipeg";
         const matchDate = toZonedTime(new Date(match.date), timeZone);
         const today = toZonedTime(new Date(), timeZone);
+        if (activeView === "past-matches") {
+          return matchDate < today;
+        }
         return matchDate >= today;
       })
       .filter((match) => {
