@@ -1,11 +1,11 @@
 "use client";
-
+import { parse } from "date-fns";
 import { CalendarView } from "@/components/Calendar-view";
 import { CricketNav } from "@/components/cricket-nav";
 import { ListView } from "@/components/list-view";
 import { useAppContext } from "@/context/AppContext";
 import matches from "@/data/2025.json";
-import { toZonedTime } from "date-fns-tz";
+import { format, toZonedTime } from "date-fns-tz";
 import { useMemo } from "react";
 
 export default function Home() {
@@ -21,12 +21,16 @@ export default function Home() {
       .filter((match) => {
         // Winnipeg timezone
         const timeZone = "America/Winnipeg";
-        const matchDate = toZonedTime(new Date(match.date), timeZone);
         const today = toZonedTime(new Date(), timeZone);
+        const matchDateLocal = parse(match.date, "yyyy-MM-dd", new Date());
+        const matchDateString = format(matchDateLocal, "yyyy-MM-dd", {
+          timeZone,
+        });
+        const todayDateString = format(today, "yyyy-MM-dd", { timeZone });
         if (activeView === "past-matches") {
-          return matchDate < today;
+          return matchDateString < todayDateString;
         }
-        return matchDate >= today;
+        return matchDateString >= todayDateString;
       })
       .filter((match) => {
         if (activeView === "home") return match.isHome;
